@@ -20,7 +20,7 @@ class BasePage:
 
     def verify_if_element_visible(self, locator):
         try:
-            return self.selenium.find_element(*locator).is_displayed()
+            return self.driver.find_element(*locator).is_displayed()
         except (Exceptions.NoSuchElementException,
                 Exceptions.ElementNotVisibleException):
             return False
