@@ -197,4 +197,4 @@ class MirrorPage(BasePage):
 
     @property
     def submit_button(self):
-        return self.selenium.find_element(by.By.XPATH, './/button[@type="submit" and contains(.,"Submit")]')
+        return self.driver.find_element(by.By.XPATH, './/button[@type="submit" and contains(.,"Submit")]')
