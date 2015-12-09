@@ -18,7 +18,7 @@ class BasePage:
         '''Find page header's value'''
         return self.driver.find_element(by.By.CLASS_NAME, "page-header")
 
-    def verify_if_element_visible(self):
+    def verify_if_element_visible(self, locator):
         try:
             return self.selenium.find_element(*locator).is_displayed()
         except (Exceptions.NoSuchElementException,

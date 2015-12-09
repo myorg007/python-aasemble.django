@@ -141,7 +141,6 @@ class RepositoryFunctionalTests(WebObject):
         mirrorPage = MirrorPage(self.driver)
         mirrorPage.driver.get(self.live_server_url)
         mirrorPage.mirror_button.click()
-        new_mirror_button = ()
         self.assertTrue(mirrorPage.verify_if_element_visible(("by.By.LINK_TEXT", 'New')), "Mirror New Button is not Visible")
         mirrorPage.new_button.click()
         mirrorPage.url_field.send_keys('%s%s' % (self.live_server_url, '/apt/brandon/brandon'))
