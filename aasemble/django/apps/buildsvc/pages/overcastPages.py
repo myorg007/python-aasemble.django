@@ -181,20 +181,20 @@ class MirrorPage(BasePage):
 
     @property
     def new_button(self):
-        self.driver.find_element(by.By.LINK_TEXT, 'New')
+        return self.driver.find_element(by.By.LINK_TEXT, 'New')
 
     @property
     def url_field(self):
-        self.driver.find_element(by.By.ID, 'id_url')
+        return self.driver.find_element(by.By.ID, 'id_url')
 
     @property
     def series_field(self):
-        self.driver.find_element(by.By.ID, 'id_series')
+        return self.driver.find_element(by.By.ID, 'id_series')
 
     @property
     def component_field(self):
-        self.driver.find_element(by.By.ID, 'id_components')
+        return self.driver.find_element(by.By.ID, 'id_components')
 
     @property
     def submit_button(self):
-        self.selenium.find_element(by.By.XPATH, './/button[@type="submit" and contains(.,"Submit")]')
+        return self.selenium.find_element(by.By.XPATH, './/button[@type="submit" and contains(.,"Submit")]')
