@@ -1,3 +1,5 @@
+import selenium.common.exceptions as Exceptions
+
 from selenium.webdriver.common import by
 from selenium.webdriver.support.ui import Select
 
@@ -15,6 +17,13 @@ class BasePage:
     def get_page_header_value(self):
         '''Find page header's value'''
         return self.driver.find_element(by.By.CLASS_NAME, "page-header")
+
+    def verify_if_element_visible(self):
+        try:
+            return self.selenium.find_element(*locator).is_displayed()
+        except (Exceptions.NoSuchElementException,
+                Exceptions.ElementNotVisibleException):
+            return False
 
     @property
     def new_submit_button(self):
@@ -117,7 +126,7 @@ class ProfilePage(BasePage):
 
 
 class LogoutPage(BasePage):
-    '''This class is to perform all operations on Profile
+    '''This class is to perform all operations on Logout
     view of site'''
 
     @property
@@ -159,3 +168,33 @@ class BuildPage(BasePage):
             return False
         else:
             return True
+
+
+class MirrorPage(BasePage):
+    '''This class is to perform all operations on Mirrors
+    view of site'''
+
+    @property
+    def mirror_button(self):
+        '''Finds  mirror button'''
+        return self.driver.find_element(by.By.LINK_TEXT, 'Mirrors')
+
+    @property
+    def new_button(self):
+        self.driver.find_element(by.By.LINK_TEXT, 'New')
+
+    @property
+    def url_field(self):
+        self.driver.find_element(by.By.ID, 'id_url')
+
+    @property
+    def series_field(self):
+        self.driver.find_element(by.By.ID, 'id_series')
+
+    @property
+    def component_field(self):
+        self.driver.find_element(by.By.ID, 'id_components')
+
+    @property
+    def submit_button(self):
+        self.selenium.find_element(by.By.XPATH, './/button[@type="submit" and contains(.,"Submit")]')

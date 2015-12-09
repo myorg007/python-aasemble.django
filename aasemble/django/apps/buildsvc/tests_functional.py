@@ -10,8 +10,6 @@ from aasemble.django.apps.buildsvc.tasks import poll_one
 
 from aasemble.django.tests import create_session_cookie
 
-# import selenium.common.exceptions as Exceptions
-
 
 @skipIf(os.environ.get('SKIP_SELENIUM_TESTS', '') == '1',
         'Skipping Selenium based test, because SKIP_SELENIUM_TESTS=1')
@@ -136,3 +134,20 @@ class RepositoryFunctionalTests(WebObject):
         logoutPage.driver.get(self.live_server_url)
         logoutPage.logout_button.click()
         self.assertEqual(logoutPage.verify_login_page(), True, "Logout didn't work")
+
+    def test_new_mirrors(self):
+        ''' This tests validates if non public mirror is created'''
+        self.create_login_session('brandon')
+        mirrorPage = MirrorPage(self.driver)
+        mirrorPage.driver.get(self.live_server_url)
+        mirrorPage.mirror_button.click()
+        new_mirror_button = ()
+        self.assertTrue(mirrorPage.verify_if_element_visible((by.By.LINK_TEXT, 'New')), "Mirror New Button is not Visible")
+        mirrorPage.new_button.click()
+        mirrorPage.url_field.send_keys('%s%s' % (self.live_server_url, '/apt/brandon/brandon'))
+        mirrorPage.series_field.send_keys('brandon/aasemble')
+        mirrorPage.component_field.send_keys('aasemble')
+        mirrorPage.submit_button.click()
+        self.assertTrue(mirrorPage.verify_if_element_visible((by.By.LINK_TEXT, '%s%s' % (self.live_server_url, '/apt/brandon/brandon'))))
+        # Test if public flag is false
+        self.assertTrue(mirrorPage.verify_if_element_visible((by.By.XPATH, ".//table/tbody/tr[1]/td[5][contains(text(), False)]")))
